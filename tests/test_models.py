@@ -4,60 +4,69 @@ import pytest
 import numpy as np
 import numpy.testing as npt
 
-
-def test_daily_mean_zeros():
-    """Test that mean function works for an array of zeros."""
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        ([ [0, 0], [0, 0], [0, 0] ], [0, 0]),
+        ([ [1, 2], [3, 4], [5, 6] ], [3, 4]),
+    ])
+def test_daily_mean(test, expected):
+    """Test mean function works for array of zeros and positive integers."""
     from inflammation.models import daily_mean
+    npt.assert_array_equal(daily_mean(np.array(test)), np.array(expected))
 
-    test_input = np.array([[0, 0],
-                           [0, 0],
-                           [0, 0]])
-    test_result = np.array([0, 0])
+# def test_daily_mean_zeros():
+#     """Test that mean function works for an array of zeros."""
+#     from inflammation.models import daily_mean
 
-    # Need to use Numpy testing functions to compare arrays
-    npt.assert_array_equal(daily_mean(test_input), test_result)
+#     test_input = np.array([[0, 0],
+#                            [0, 0],
+#                            [0, 0]])
+#     test_result = np.array([0, 0])
+
+#     # Need to use Numpy testing functions to compare arrays
+#     npt.assert_array_equal(daily_mean(test_input), test_result)
 
 
-def test_daily_mean_integers():
-    """Test that mean function works for an array of positive integers."""
-    from inflammation.models import daily_mean
+# def test_daily_mean_integers():
+#     """Test that mean function works for an array of positive integers."""
+#     from inflammation.models import daily_mean
 
-    test_input = np.array([[1, 2],
-                           [3, 4],
-                           [5, 6]])
-    test_result = np.array([3, 4])
+#     test_input = np.array([[1, 2],
+#                            [3, 4],
+#                            [5, 6]])
+#     test_result = np.array([3, 4])
 
-    # Need to use Numpy testing functions to compare arrays
-    npt.assert_array_equal(daily_mean(test_input), test_result)
+#     # Need to use Numpy testing functions to compare arrays
+#     npt.assert_array_equal(daily_mean(test_input), test_result)
 
 def test_daily_max_positive():
     """Tests that daily max works for positive integers"""
     from inflammation.models import daily_max
-    
+
     test_input = np.array([[1,2],
                            [3,4],
                            [5,6]])
     test_result = np.array([5,6])
-    
+
     # Need to use Numpy testing functions to compare arrays
     npt.assert_array_equal(daily_max(test_input), test_result)
 
 def test_daily_min_negative():
     """Tests that daily min works for positive integers"""
     from inflammation.models import daily_min
-    
+
     test_input = np.array([[ 4, -2, 5],
                            [ 1, -6, 2],
                            [-4, -1, 9]])
     test_result = np.array([-4, -6, 2])
-    
+
     # Need to use Numpy testing functions to compare arrays
     npt.assert_array_equal(daily_min(test_input), test_result)
 
 def test_daily_min_string():
     """Test for TypeError when passing strings"""
     from inflammation.models import daily_min
-    
+
     with pytest.raises(TypeError):
         error_expected = daily_min([['Hello', 'there'], ['General', 'Kenobi']])
-        
