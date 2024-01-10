@@ -40,6 +40,27 @@ def test_daily_mean(test, expected):
 #     # Need to use Numpy testing functions to compare arrays
 #     npt.assert_array_equal(daily_mean(test_input), test_result)
 
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        ([[1,2], [3,4], [5,6]], [5,6]),
+        # ([[ 4, -2, 5], [ 1, -6, 2], [-4, -1, 9]], [-4, -6, 2]),
+    ])
+def test_daily_max_min(test, expected):
+    """Tests that daily max works for positive integers and min works for negative integers """
+    from inflammation.models import daily_max
+    npt.assert_array_equal(daily_max(np.array(test)), np.array(expected))
+
+@pytest.mark.parametrize(
+    "test, expected",
+    [
+        ([[ 4, -2, 5], [ 1, -6, 2], [-4, -1, 9]], [-4, -6, 2]),
+    ])
+def test_daily_min(test, expected):
+    from inflammation.models import daily_min
+    npt.assert_array_equal(daily_min(np.array(test)), np.array(expected))
+
+
 def test_daily_max_positive():
     """Tests that daily max works for positive integers"""
     from inflammation.models import daily_max
