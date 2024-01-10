@@ -29,3 +29,27 @@ def test_daily_mean_integers():
     # Need to use Numpy testing functions to compare arrays
     npt.assert_array_equal(daily_mean(test_input), test_result)
 
+def test_daily_max_positive():
+    """Tests that daily max works for positive integers"""
+    from inflammation.models import daily_max
+    
+    test_input = np.array([[1,2],
+                           [3,4],
+                           [5,6]])
+    test_result = np.array([5,6])
+    
+    # Need to use Numpy testing functions to compare arrays
+    npt.assert_array_equal(daily_max(test_input), test_result)
+
+def test_daily_min_negative():
+    """Tests that daily min works for positive integers"""
+    from inflammation.models import daily_min
+    
+    test_input = np.array([[ 4, -2, 5],
+                           [ 1, -6, 2],
+                           [-4, -1, 9]])
+    test_result = np.array([-4, -6, 2])
+    
+    # Need to use Numpy testing functions to compare arrays
+    npt.assert_array_equal(daily_min(test_input), test_result) 
+ 
